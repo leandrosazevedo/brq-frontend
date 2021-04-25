@@ -21,12 +21,31 @@ export class PessoaService {
         return this.http.get<Pessoa[]>(`${env.API_REST}/pessoas`);
     }
 
-    insertPessoa(pessoa: Pessoa): Observable<Pessoa> {
-        return this.http.post<Pessoa>(`${env.API_REST}/pessoa`, pessoa).pipe(
-          map(obj => obj),
-          catchError(e => this.erroHandler(e))
-        )
+    save(pessoa:Pessoa){
+      console.log('cliquei em salvar');
+      console.log(pessoa);
+      if(pessoa.id){
+        return this.editPessoa(pessoa);
+      } else {
+        return this.insertPessoa(pessoa);
+      }
     }
+
+    insertPessoa(pessoa: Pessoa): Observable<Pessoa> {
+      return this.http.post<Pessoa>(`${env.API_REST}/pessoa`, pessoa).pipe(
+        map(obj => obj),
+        catchError(e => this.erroHandler(e))
+      )
+    }
+
+    editPessoa(pessoa: Pessoa): Observable<Pessoa> {
+      return this.http.put<Pessoa>(`${env.API_REST}/pessoa/${pessoa.id}`, pessoa).pipe(
+        map(obj => obj),
+        catchError(e => this.erroHandler(e))
+      )
+    }
+
+
     
     // auxiliares
     showMensage(msg: string, isError: boolean = false): void {

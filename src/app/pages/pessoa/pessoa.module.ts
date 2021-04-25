@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalPessoaComponent } from './views/modal/modal-pessoa.component';
 import { FormularioComponent } from './views/formulario/formulario.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { FormularioComponent } from './views/formulario/formulario.component';
     SharedModule,
     RouterModule,
     MatDialogModule,
-    
+    NgxMaskModule.forRoot()
   ],
   exports: [
     PessoaComponent,

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Pessoa } from 'src/app/shared/model/pessoa.model';
+import { PessoaService } from '../../pessoa.service';
 
 @Component({
     selector: 'app-formulario',
@@ -13,7 +14,10 @@ export class FormularioComponent implements OnInit {
 
     formPessoa: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private service: PessoaService
+        ) {}
 
     ngOnInit(){
         this.createForm(this.pessoa);
@@ -23,8 +27,8 @@ export class FormularioComponent implements OnInit {
         this.formPessoa = this.formBuilder.group({
             id: [pessoa.id],
             nome: [pessoa.nome, Validators.required],
-            cpf: [pessoa.cpf, Validators.required],
-            email: [pessoa.email, Validators.email],
+            cpf: [pessoa.cpf,[Validators.required, Validators.minLength(11)]],
+            email: [pessoa.email, [Validators.required, Validators.email]],
             telefone: [pessoa.telefone, Validators.required],
             sexo: [pessoa.sexo, Validators.required],
             datanascimento: [pessoa.datanascimento, Validators.required]
@@ -33,8 +37,15 @@ export class FormularioComponent implements OnInit {
 
     onSubmit(){
         if(this.formPessoa.valid){
-            console.log(this.formPessoa.value);
-            this.formPessoa.reset(new Pessoa());
+            // console.log(this.formPessoa.value);
+            // this.formPessoa.reset(new Pessoa());
+            this.service.save(this.formPessoa.value).subscribe(response => {
+                console.log(response);
+            })
         }
+    }
+
+    hasError(controlName: string, errorName: string) {
+        return this.formPessoa.controls[controlName].hasError(errorName);
     }
 }

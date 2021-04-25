@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CpfPipe } from './shared/components/pipes/cpf.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
 
     /** Modules */
+    NgxMaskModule.forRoot(),
     ReactiveFormsModule,
     MatTableModule,
     RouterModule,

@@ -1,38 +1,48 @@
 <form [formGroup]="formPessoa" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
+  <div class="row">
+
+    <div class="form-group col-4">
+      <label for="cpf">CPF</label>
+      <input type="text"
+             class="form-control"
+             name="cpf" id="cpf" required
+             placeholder="00000000000"
+             formControlName="cpf"  mask="99999999999">
+      <span *ngIf="hasError('cpf', 'required')">Campo CPF obrigatório</span>
+      <span *ngIf="hasError('cpf', 'minlength')">Campo CPF deve possuir 11 caracteres</span>
+    </div>
+
+    <div class="form-group col-8">
         <label for="nome">Nome</label>
         <input type="text" 
                class="form-control"
                name="nome" id="nome" required
                formControlName="nome">
+        <span *ngIf="hasError('nome', 'required')">Campo Nome obrigatório</span>
     </div>
 
-    <div class="form-group">
-        <label for="cpf">CPF</label>
-        <input type="text"
-               class="form-control"
-               name="cpf" id="cpf" required
-               formControlName="cpf">
-    </div>
-
-    <div class="form-group">
+    <div class="form-group col-8">
         <label for="email">E-mail</label>
         <input type="text"
                class="form-control"
                name="email" id="email" required
                formControlName="email">
+        <span *ngIf="hasError('email', 'required')">Campo Email obrigatório</span>
+        <span *ngIf="hasError('email', 'email')">Campo Email deve ser válido</span>
     </div>
 
-      <div class="form-group">
-        <label for="telefone">Telefone</label>
-        <input type="text"
-               class="form-control"
-               name="telefone" id="telefone" required
-               formControlName="telefone">
-      </div>
+    <div class="form-group col-4">
+      <label for="telefone">Telefone</label>
+      <input type="text"
+              class="form-control"
+              name="telefone" id="telefone" required
+              placeholder="(00) 000000000"
+              formControlName="telefone" mask="(00) 000000000">
+      <span *ngIf="hasError('telefone', 'required')">Campo Telefone obrigatório</span>
+    </div>
   
-    <div class="form-group">
+    <div class="form-group col-12">
       <label>Sexo</label>
       <div class="form-check">
         <input class="form-check-input"
@@ -48,17 +58,20 @@
                formControlName="sexo">
         <label class="form-check-label" for="feminino">Feminino</label>
       </div>
+      <span *ngIf="hasError('sexo', 'required')">Campo Sexo obrigatório</span>
     </div>
   
-    <div class="form-group">
+    <div class="form-group col-4">
       <label for="datanascimento">Data de nascimento</label>
       <input type="date"
              class="form-control"
              name="datanascimento" id="datanascimento" required
              formControlName="datanascimento">
+      <span *ngIf="hasError('datanascimento', 'required')">Campo Data de nascimento obrigatório</span>
     </div>
+  </div>
   
-    <input type="submit" class="btn btn-primary mt-4" value="Salvar">
-    <a href="#" class="btn btn-secondary mt-4 ml-2">Cancelar</a>
+  <input type="submit" class="btn btn-primary mt-4" value="Salvar">
+  <a href="#" class="btn btn-secondary mt-4 ml-2">Cancelar</a>
   
-  </form>
+</form>
