@@ -1,0 +1,12 @@
+@mixin media-breakpoint($tipo){
+    @if($tipo == mobile){
+        @media (max-width: 768px) {
+            @content;
+        }
+    }
+    @if($tipo == desktop){
+        @media (min-width: 769px) {
+            @content;
+        }
+    }
+}

@@ -1,0 +1,69 @@
+<div *ngIf="!hasDataSource()">
+    <generic-loading></generic-loading>
+</div>
+
+<button rounded [disabled]='false' (click)="openDialogPessoaInsert()" color="gray-light" text="gray-dark" >
+    Adicionar Pessoa
+</button>
+
+<table mat-table [dataSource]="dataSource" class="table-pessoa" *ngIf="hasDataSource()">
+    
+    <ng-container matColumnDef="ID">
+        <th style="width: 5%;" mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NOME">
+        <th style="width: 22%;" mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element"> {{ element.nome }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CPF">
+        <th style="width: 11%;" mat-header-cell *matHeaderCellDef>CPF</th>
+        <td mat-cell *matCellDef="let element"> {{ element.cpf }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="EMAIL">
+        <th style="width: 20%;" mat-header-cell *matHeaderCellDef>E-mail</th>
+        <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="TELEFONE">
+        <th style="width: 15%;" mat-header-cell *matHeaderCellDef>Telefone</th>
+        <td mat-cell *matCellDef="let element"> {{ element.telefone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SEXO">
+        <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>Sexo</th>
+        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{ element.sexo }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DATA_DE_NASCIMENTO">
+        <th style="width: 12%; text-align: center;" mat-header-cell *matHeaderCellDef>Data Nascimento</th>
+        <td style="text-align: center;" mat-cell *matCellDef="let element"> {{ element.datanascimento | date: 'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ACAO">
+        <th  style="width: 10%; text-align: center;" mat-header-cell *matHeaderCellDef class="actions">Ações</th>
+        <td mat-cell *matCellDef="let row">
+            <div class="acoes">
+
+                <button rounded [disabled]='false' (click)="openDialogPessoaEdit(row)" >
+                    <i class="material-icons edit">
+                        edit
+                    </i>
+                </button>
+    
+                <button rounded [disabled]='false' (click)="openDialogPessoaDelete(row)" >
+                    <i class="material-icons delete">
+                        delete
+                    </i>
+                </button>
+            </div>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
