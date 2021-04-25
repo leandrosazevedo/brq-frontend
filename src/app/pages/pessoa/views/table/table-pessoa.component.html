@@ -4,8 +4,12 @@
     </button>
 </div>
 
-<div *ngIf="!hasDataSource()">
+<div *ngIf="!hasDataSource() && !isEmptyTable()">
     <generic-loading></generic-loading>
+</div>
+
+<div  *ngIf="isEmptyTable()">
+    <p>Nenhuma pessoa cadastrada.</p>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="table-pessoa" *ngIf="hasDataSource()">

@@ -16,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalPessoaComponent } from './views/modal/modal-pessoa.component';
 import { FormularioComponent } from './views/formulario/formulario.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { DeletarComponent } from './views/deletar/deletar.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NgxMaskModule } from 'ngx-mask';
     TablePessoaComponent,
     ModalPessoaComponent,
     FormularioComponent,
+    DeletarComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { NgxMaskModule } from 'ngx-mask';
     PessoaComponent,
     TablePessoaComponent,
     ModalPessoaComponent,
-    FormularioComponent
+    FormularioComponent,
+    DeletarComponent
   ],
   providers: [PessoaService],
 })

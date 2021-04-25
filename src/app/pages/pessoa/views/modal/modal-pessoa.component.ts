@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges, OnChanges, Inject, Input } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TypeEnum } from 'src/app/shared/enum/type.enum';
 
 @Component({
     selector: 'modal-pessoa',
@@ -40,5 +41,8 @@ export class ModalPessoaComponent implements OnInit, OnChanges {
         }
     }
 
+    isDelete(){
+        return this.data.type == TypeEnum.delete ? true : false;
+    }
     
 }

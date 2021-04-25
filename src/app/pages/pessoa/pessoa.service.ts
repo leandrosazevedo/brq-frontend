@@ -14,7 +14,10 @@ export class PessoaService {
     constructor(private snackBar: MatSnackBar, private http: HttpClient) { }
 
     getPessoas(): Observable<Pessoa[]> {
-        return this.http.get<Pessoa[]>(`${env.API_REST}/pessoas`);
+        return this.http.get<Pessoa[]>(`${env.API_REST}/pessoa`).pipe(
+          map(obj => obj),
+          catchError(e => this.erroHandler(e))
+        )
     }
 
     save(pessoa:Pessoa){
@@ -39,6 +42,12 @@ export class PessoaService {
       )
     }
 
+    deletePessoa(pessoa: Pessoa): Observable<any> {
+      return this.http.delete<Pessoa>(`${env.API_REST}/pessoa/${pessoa.id}`).pipe(
+        map(obj => obj),
+        catchError(e => this.erroHandler(e))
+      )
+  }
 
     // auxiliares
     showMensage(msg: string, isError: boolean = false): void {

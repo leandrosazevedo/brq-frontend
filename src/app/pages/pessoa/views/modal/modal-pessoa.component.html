@@ -1,4 +1,7 @@
 <div class="container-dialog">
     <h3>{{data.titulo}}</h3>
-    <app-formulario [pessoa]="data.pessoa" (returnParams)="retornoParametrosFormulario($event)"></app-formulario>
+
+    <app-deletar *ngIf="isDelete()" [pessoa]="data.pessoa" (returnParams)="retornoParametrosFormulario($event)"></app-deletar>
+
+    <app-formulario *ngIf="!isDelete()" [pessoa]="data.pessoa" (returnParams)="retornoParametrosFormulario($event)"></app-formulario>
 </div>

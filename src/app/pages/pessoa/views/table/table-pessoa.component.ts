@@ -19,6 +19,7 @@ export class TablePessoaComponent implements OnInit, OnChanges {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
     table = [];
+    isEmpty = false;
     dataSource = new MatTableDataSource();
     displayedColumns = [
                         'ID',
@@ -53,15 +54,18 @@ export class TablePessoaComponent implements OnInit, OnChanges {
     loadTable(){
         this.table = [];
         this.service.getPessoas().subscribe((response: Pessoa[]) => {
+            this.isEmpty = response.length == 0 ? true : false;
             this.table = response; 
             this.dataSource.data = this.table.sort((a,b) => a.nome.localeCompare(b.nome));
-            // console.log('resposta');
-            // console.log(this.dataSource);
         });
     }
 
     hasDataSource():boolean{
         return this.table.length > 0 ? true : false;
+    }
+
+    isEmptyTable():boolean{
+        return this.isEmpty;
     }
 
     openDialogPessoaInsert(){
@@ -80,7 +84,7 @@ export class TablePessoaComponent implements OnInit, OnChanges {
         let dialogRef;
         dialogRef = this.dialog.open(ModalPessoaComponent,  {
           width: '90%', // Define a largura do componente dialog
-          height: '80%',
+        //   height: '80%',
           data : {
               'pessoa': pessoa,
               'type' : type,
@@ -90,12 +94,8 @@ export class TablePessoaComponent implements OnInit, OnChanges {
             try{
                 if(result.updateTable){
                     this.loadTable();
-                } else {
-                    console.log('não atualizar');
                 }
-            } catch {
-                console.log('não atualizar');
-            }
+            } catch { }
         });
     }
 
