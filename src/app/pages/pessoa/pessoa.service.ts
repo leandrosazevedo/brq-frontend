@@ -13,17 +13,11 @@ export class PessoaService {
 
     constructor(private snackBar: MatSnackBar, private http: HttpClient) { }
 
-    // getPeriodoLetivoAtualModalidadeAtual(): Observable<any> {
-    //     return this.http.get<any>(`${env.API_REST}/periodoletivoatualmodalidadeatual`);
-    // }
-
     getPessoas(): Observable<Pessoa[]> {
         return this.http.get<Pessoa[]>(`${env.API_REST}/pessoas`);
     }
 
     save(pessoa:Pessoa){
-      console.log('cliquei em salvar');
-      console.log(pessoa);
       if(pessoa.id){
         return this.editPessoa(pessoa);
       } else {
@@ -31,14 +25,14 @@ export class PessoaService {
       }
     }
 
-    insertPessoa(pessoa: Pessoa): Observable<Pessoa> {
+    insertPessoa(pessoa: Pessoa): Observable<any> {
       return this.http.post<Pessoa>(`${env.API_REST}/pessoa`, pessoa).pipe(
         map(obj => obj),
         catchError(e => this.erroHandler(e))
       )
     }
 
-    editPessoa(pessoa: Pessoa): Observable<Pessoa> {
+    editPessoa(pessoa: Pessoa): Observable<any> {
       return this.http.put<Pessoa>(`${env.API_REST}/pessoa/${pessoa.id}`, pessoa).pipe(
         map(obj => obj),
         catchError(e => this.erroHandler(e))
@@ -46,7 +40,6 @@ export class PessoaService {
     }
 
 
-    
     // auxiliares
     showMensage(msg: string, isError: boolean = false): void {
         this.snackBar.open(msg, "x", {

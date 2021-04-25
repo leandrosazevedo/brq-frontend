@@ -1,10 +1,12 @@
+<div class="btn-insert">
+    <button class="btn btn-primary" (click)="openDialogPessoaInsert()" >
+        Adicionar Pessoa
+    </button>
+</div>
+
 <div *ngIf="!hasDataSource()">
     <generic-loading></generic-loading>
 </div>
-
-<button rounded [disabled]='false' (click)="openDialogPessoaInsert()" color="gray-light" text="gray-dark" >
-    Adicionar Pessoa
-</button>
 
 <table mat-table [dataSource]="dataSource" class="table-pessoa" *ngIf="hasDataSource()">
     
@@ -48,13 +50,13 @@
         <td mat-cell *matCellDef="let row">
             <div class="acoes">
 
-                <button rounded [disabled]='false' (click)="openDialogPessoaEdit(row)" >
+                <button (click)="openDialogPessoaEdit(row)" class="btn btn-link edit">
                     <i class="material-icons edit">
                         edit
                     </i>
                 </button>
     
-                <button rounded [disabled]='false' (click)="openDialogPessoaDelete(row)" >
+                <button (click)="openDialogPessoaDelete(row)" class="btn btn-link del">
                     <i class="material-icons delete">
                         delete
                     </i>

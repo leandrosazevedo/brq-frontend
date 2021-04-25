@@ -26,8 +26,18 @@ export class ModalPessoaComponent implements OnInit, OnChanges {
         
     }
 
-    close() {
-        this.dialogRef.close();
+    close(updateTable:boolean) {
+        this.dialogRef.close({
+            'updateTable' : updateTable
+        });
+    }
+
+    retornoParametrosFormulario(returnParms){
+        var hideModal = returnParms.hideModal;
+        var updateTable = returnParms.updateTable;
+        if(hideModal){
+            this.close(updateTable);
+        }
     }
 
     

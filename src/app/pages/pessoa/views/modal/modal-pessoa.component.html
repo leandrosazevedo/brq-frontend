@@ -1,7 +1,4 @@
 <div class="container-dialog">
-
-    <p>MODAL {{data.type}}</p>
-
-    <app-formulario [pessoa]="data.pessoa"></app-formulario>
-  
+    <h3>{{data.titulo}}</h3>
+    <app-formulario [pessoa]="data.pessoa" (returnParams)="retornoParametrosFormulario($event)"></app-formulario>
 </div>

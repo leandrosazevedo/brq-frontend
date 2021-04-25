@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Pessoa } from 'src/app/shared/model/pessoa.model';
 import { PessoaService } from '../../pessoa.service';
@@ -11,7 +11,9 @@ import { PessoaService } from '../../pessoa.service';
 export class FormularioComponent implements OnInit {
 
     @Input() pessoa: Pessoa;
+    @Output() returnParams = new EventEmitter();
 
+    hasSubmit: boolean = false;
     formPessoa: FormGroup;
 
     constructor(
@@ -36,16 +38,36 @@ export class FormularioComponent implements OnInit {
     }
 
     onSubmit(){
+        this.hasSubmit = true;
         if(this.formPessoa.valid){
-            // console.log(this.formPessoa.value);
-            // this.formPessoa.reset(new Pessoa());
             this.service.save(this.formPessoa.value).subscribe(response => {
-                console.log(response);
+                var msg = response.userMessage;
+                if(response.success){
+                    this.service.showMensage(msg);
+                    this.enviaParamns(true,true);
+                } else {
+                    this.service.erroHandler(msg);
+                }
             })
         }
     }
 
+    cancel(){
+        this.enviaParamns(true,false);
+    }
+
     hasError(controlName: string, errorName: string) {
-        return this.formPessoa.controls[controlName].hasError(errorName);
+        if(this.hasSubmit){
+            return this.formPessoa.controls[controlName].hasError(errorName);
+        }
+    }
+
+    enviaParamns(hideModal:boolean, updateTable:boolean) { // DEVOLVE PARA QUEM O INVOVOU
+        this.returnParams.emit(
+            {
+                "hideModal" : hideModal,
+                "updateTable" : updateTable
+            }
+        );
     }
 }

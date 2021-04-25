@@ -6,6 +6,8 @@ import { Pessoa } from 'src/app/shared/model/pessoa.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalPessoaComponent } from '../modal/modal-pessoa.component';
 import { TypeEnum } from 'src/app/shared/enum/type.enum';
+import { Router } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
     selector: 'table-pessoa',
@@ -63,26 +65,37 @@ export class TablePessoaComponent implements OnInit, OnChanges {
     }
 
     openDialogPessoaInsert(){
-        this.openDialog(new Pessoa(),TypeEnum.insert);
+        this.openDialog(new Pessoa(),TypeEnum.insert,'Inserir nova pessoa');
     }
 
     openDialogPessoaEdit(pessoa:Pessoa){
-        this.openDialog(pessoa,TypeEnum.edit);
+        this.openDialog(pessoa,TypeEnum.edit, 'Editar pessoa');
     }
 
     openDialogPessoaDelete(pessoa:Pessoa){
-        this.openDialog(pessoa,TypeEnum.delete);
+        this.openDialog(pessoa,TypeEnum.delete, 'Exluir pessoa');
     }
 
-    openDialog(pessoa:Pessoa,type:string) {
+    openDialog(pessoa:Pessoa, type:string, titulo:string) {
         let dialogRef;
         dialogRef = this.dialog.open(ModalPessoaComponent,  {
           width: '90%', // Define a largura do componente dialog
           height: '80%',
           data : {
               'pessoa': pessoa,
-              'type' : type
+              'type' : type,
+              'titulo' : titulo
           }
+        }).afterClosed().subscribe(result => {
+            try{
+                if(result.updateTable){
+                    this.loadTable();
+                } else {
+                    console.log('não atualizar');
+                }
+            } catch {
+                console.log('não atualizar');
+            }
         });
     }
 

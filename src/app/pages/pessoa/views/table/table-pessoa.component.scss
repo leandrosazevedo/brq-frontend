@@ -1,3 +1,28 @@
+.btn-insert{
+    position: relative;
+    button{
+        position: absolute;
+        right: 0;
+        top: -50px;
+        font-size: 14px;
+    }
+}
+
+button{
+    &.edit{
+        i{
+            color: #17a2b8;
+            font-size: 18px;
+        }
+    }
+    &.del{
+        i{
+            color: #dc3545;
+            font-size: 18px;
+        }
+    }
+}
+
 .table-pessoa{
     width: 100%;
     td, th {
